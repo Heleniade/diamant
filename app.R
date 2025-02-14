@@ -3,45 +3,39 @@ library(ggplot2)
 library(dplyr)
 library(glue)
 library(DT)
-library(usethis)
 
-# Define UI for application that draws a histogram
+Diamant <- diamonds
+min(Diamant$price)
 ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
+  titlePanel("Prix des diamants"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("prix",
+        "Prix:",
+        min = min(Diamant$price),
+        max = max(Diamant$price),
+        value = 30
+      )
+    ),
+    mainPanel(
+      plotOutput("DiamondPlot")
     )
+  )
 )
 
-# Define server logic required to draw a histogram
+
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white',
-             xlab = 'Waiting time to next eruption (in mins)',
-             main = 'Histogram of waiting times')
-    })
+  output$DiamondPlot <- renderPlot({
+    Diamant |>
+      filter(price > input$prix) |>
+      ggplot(aes(x = price)) +
+      geom_histogram(
+        binwidth = 10,
+        fill = "darkgray",
+        color = "white"
+      )
+  })
 }
 
-# Run the application 
+
 shinyApp(ui = ui, server = server)
