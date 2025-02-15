@@ -10,9 +10,14 @@ Diamant <- diamonds
 thematic_shiny(
   font = "auto"
 )
+<<<<<<< HEAD
 
 ui <- fluidPage(
   theme= bs_theme(version = 5, bootswatch = "vapor"),
+=======
+ui <- fluidPage(
+  bs_theme(bootswatch = "vapor"),
+>>>>>>> 6c0cb5303b19517fad8711a39950e38b421120de
   titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
