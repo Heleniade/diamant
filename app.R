@@ -4,8 +4,9 @@ library(dplyr)
 library(glue)
 library(DT)
 
+
 Diamant <- diamonds
-min(Diamant$price)
+
 ui <- fluidPage(
   titlePanel("Prix des diamants"),
   sidebarLayout(
@@ -14,7 +15,7 @@ ui <- fluidPage(
         "Prix:",
         min = min(Diamant$price),
         max = max(Diamant$price),
-        value = 30
+        value = 1
       )
     ),
     mainPanel(
@@ -28,12 +29,8 @@ server <- function(input, output) {
   output$DiamondPlot <- renderPlot({
     Diamant |>
       filter(price > input$prix) |>
-      ggplot(aes(x = price)) +
-      geom_histogram(
-        binwidth = 10,
-        fill = "darkgray",
-        color = "white"
-      )
+      ggplot(aes(x = carat, y = price)) + 
+      geom_point()
   })
 }
 
