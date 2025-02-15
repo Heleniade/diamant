@@ -1,5 +1,5 @@
 library(ggplot2)
-
+Diamant <- diamonds
 thematic_shiny(font = "auto")
 
 ui <- fluidPage(
@@ -43,7 +43,7 @@ server <- function(input, output) {
 
 
   observeEvent(c(input$Prix, input$CouleurDiamant), {
-    rv$FiltreDiamant <- diamonds %>%
+    rv$FiltreDiamant <- Diamant %>%
       filter(price < input$Prix) %>%
       filter(color == input$CouleurDiamant)
   })
