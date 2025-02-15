@@ -7,6 +7,9 @@ library(DT)
 
 Diamant <- diamonds
 
+thematic_shiny(
+  font = "auto",
+)
 ui <- fluidPage(
   theme = bs_theme(
     version = 5,
@@ -83,4 +86,5 @@ server <- function(input, output) {
 
 
 shinyApp(ui = ui, server = server)
+
 
