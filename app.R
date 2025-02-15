@@ -8,7 +8,7 @@ library(glue)
 Diamant <- ggplot2::diamonds
 
 ui <- fluidPage(
-  theme = bslib::bs_theme(version = 5, bootswatch = "minty"), 
+  theme = bslib::bs_theme(version = 5, bootswatch = "flatly"), 
   titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
