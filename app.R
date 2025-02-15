@@ -8,6 +8,10 @@ library(DT)
 Diamant <- diamonds
 
 ui <- fluidPage(
+  theme = bs_theme(
+    version = 5,
+    bootswatch = "darkly"
+  ),
   titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
@@ -17,14 +21,11 @@ ui <- fluidPage(
         choices = c("D", "E", "F", "G", "H", "I", "J"),
         selected = "D"
       ),
-      selectInput(
-        inputId = "CouleurNuage",
-        label = "Choisir la couleur du nuage de points",
-        choices = c(
-          "Bleu" = "blue", "Rouge" = "red", "Rose" = "pink", "Noir" = "black",
-          "Orange" = "orange", "Vert" = "green", "Jaune" = "yellow", "Gris" = "grey"
-        ),
-        selected = "Bleu"
+      radioButtons(
+        inputId = "ChangerBleu",
+        label = "Forcer la couleur en bleu ?",
+        choices = c("Oui" = "yes", "Non" = "no"),
+        selected = "no"
       ),
       sliderInput("Prix",
         "Prix:",
@@ -55,9 +56,10 @@ server <- function(input, output) {
       filter(color == input$CouleurDiamant)
   })
   output$DiamondPlot <- renderPlot({
+    couleur <- ifelse(input$ChangerBleu == "yes", "blue", "grey")
     rv$FiltreDiamant |>
       ggplot(aes(x = carat, y = price)) +
-      geom_point(color = input$CouleurNuage)
+      geom_point(color = couleur)
   })
   output$DiamondTitle <- renderText({
     rv$FiltreDiamant |>
@@ -81,3 +83,4 @@ server <- function(input, output) {
 
 
 shinyApp(ui = ui, server = server)
+
