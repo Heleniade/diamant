@@ -7,9 +7,6 @@ library(glue)
 
 Diamant <- diamonds
 
-thematic_shiny(
-  font = "auto"
-)
 
 ui <- fluidPage(
 
