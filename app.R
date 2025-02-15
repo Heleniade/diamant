@@ -8,7 +8,7 @@ library(DT)
 Diamant <- diamonds
 
 ui <- fluidPage(
-  titlePanel("Prix des diamants"),
+  titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
       sliderInput("prix",
