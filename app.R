@@ -31,10 +31,10 @@ ui <- fluidPage(
         selected = "no"
       ),
       sliderInput("Prix",
-        "Prix:",
+        "Prix maximum:",
         min = 300,
         max = 19000,
-        value = 326
+        value = 5000
       ),
       actionButton(
         inputId = "boutton",
@@ -55,7 +55,7 @@ server <- function(input, output) {
   rv <- reactiveValues()
   observeEvent(c(input$Prix, input$CouleurDiamant), {
     rv$FiltreDiamant <- Diamant |>
-      filter(price > input$Prix) |>
+      filter(price < input$Prix) |>
       filter(color == input$CouleurDiamant)
   })
   output$DiamondPlot <- renderPlot({
@@ -74,7 +74,7 @@ server <- function(input, output) {
     rv$FiltreDiamant
   })
   observeEvent(input$boutton, {
-    showNotification(glue("Prix minimum : {input$Prix}"),
+    showNotification(glue("Prix maximum : {input$Prix}"),
       type = "message"
     )
     showNotification(glue("Couleur du diamant : {input$CouleurDiamant}"),
