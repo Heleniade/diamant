@@ -1,13 +1,9 @@
-library(shiny)
-library(ggplot2)
-library(dplyr)
-library(DT)
-library(glue)
-
 Diamant <- diamonds
 
+thematic_shiny(font = "auto")
+
 ui <- fluidPage(
-  theme = bs_theme(bootswatch = "vapor"),  # Application du thème Vapor via bslib
+  theme = bs_theme(bootswatch = "vapor"),
   titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
@@ -24,10 +20,10 @@ ui <- fluidPage(
         selected = "no"
       ),
       sliderInput("Prix",
-                  "Prix maximum:",
-                  min = 300,
-                  max = 19000,
-                  value = 5000
+        "Prix maximum:",
+        min = 300,
+        max = 19000,
+        value = 5000
       ),
       actionButton(
         inputId = "boutton",
