@@ -1,9 +1,16 @@
+library(shiny)
 library(ggplot2)
+library(dplyr)
+library(DT)
+library(glue)
+
+
 Diamant <- diamonds
-thematic_shiny(font = "auto")
+
+
 
 ui <- fluidPage(
-  theme = bs_theme(bootswatch = "vapor"),
+  theme = bs_theme(version = 5, bootswatch = "minty"),
   titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
@@ -17,7 +24,7 @@ ui <- fluidPage(
         inputId = "ChangerBleu",
         label = "Forcer la couleur en bleu ?",
         choices = c("Oui" = "yes", "Non" = "no"),
-        selected = "yes"
+        selected = "no"
       ),
       sliderInput("Prix",
         "Prix maximum:",
@@ -75,4 +82,4 @@ server <- function(input, output) {
   })
 }
 
-shinyApp(ui = ui, server = server)
+shinyApp(ui, server)
