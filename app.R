@@ -12,10 +12,7 @@ thematic_shiny(
 )
 
 ui <- fluidPage(
-  theme = bs_theme(
-    version = 5,
-    bootswatch = "vapor"
-  ),
+
   titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
