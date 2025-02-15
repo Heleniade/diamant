@@ -1,5 +1,3 @@
-Diamant <- diamonds
-
 thematic_shiny(font = "auto")
 
 ui <- fluidPage(
@@ -17,7 +15,7 @@ ui <- fluidPage(
         inputId = "ChangerBleu",
         label = "Forcer la couleur en bleu ?",
         choices = c("Oui" = "yes", "Non" = "no"),
-        selected = "no"
+        selected = "yes"
       ),
       sliderInput("Prix",
         "Prix maximum:",
@@ -43,7 +41,7 @@ server <- function(input, output) {
 
 
   observeEvent(c(input$Prix, input$CouleurDiamant), {
-    rv$FiltreDiamant <- Diamant %>%
+    rv$FiltreDiamant <- diamonds %>%
       filter(price < input$Prix) %>%
       filter(color == input$CouleurDiamant)
   })
@@ -75,4 +73,4 @@ server <- function(input, output) {
   })
 }
 
-shinyApp(ui, server)
+shinyApp(ui = ui, server = server)
