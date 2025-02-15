@@ -46,20 +46,25 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
-  output$DiamondPlot <- renderPlot({
-    Diamant |>
+  rv <- reactiveValues()
+  observeEvent(c(input$Prix, input$CouleurDiamant), {
+    rv$FiltreDiamant <- Diamant |>
       filter(price > input$Prix) |>
-      filter(color > input$CouleurDiamant) |>
+      filter(color == input$CouleurDiamant)
+  })
+  output$DiamondPlot <- renderPlot({
+    rv$FiltreDiamant |>
       ggplot(aes(x = carat, y = price)) +
       geom_point(color = input$CouleurNuage)
   })
   output$DiamondTitle <- renderText({
-    Diamant |>
-      filter(price > input$Prix) |>
-      filter(color > input$CouleurDiamant) |>
+    rv$FiltreDiamant |>
       nrow()
     
     glue("Prix : {input$Prix} & Couleur du diamant : {input$CouleurDiamant}")
+  })
+  output$DiamondTable <- renderDT({
+    rv$FiltreDiamant
   })
 }
 
