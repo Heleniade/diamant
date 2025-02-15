@@ -53,6 +53,14 @@ server <- function(input, output) {
       ggplot(aes(x = carat, y = price)) +
       geom_point(color = input$CouleurNuage)
   })
+  output$DiamondTitle <- renderText({
+    Diamant |>
+      filter(price > input$Prix) |>
+      filter(color > input$CouleurDiamant) |>
+      nrow()
+    
+    glue("Prix : {input$Prix} & Couleur du diamant : {input$CouleurDiamant}")
+  })
 }
 
 
