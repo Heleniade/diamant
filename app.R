@@ -1,14 +1,19 @@
 library(shiny)
+library(bslib)
 library(ggplot2)
 library(dplyr)
 library(DT)
 library(glue)
+library(thematic)
+library(shinylive)
 
 
-Diamant <- ggplot2::diamonds
+Diamant <- diamonds
+
+thematic_shiny(font = "auto")
 
 ui <- fluidPage(
-  theme = bslib::bs_theme(version = 5, bootswatch = "flatly"), 
+  theme = bs_theme(version = 5, bootswatch = "vapor"), 
   titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
