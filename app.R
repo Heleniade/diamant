@@ -1,3 +1,5 @@
+library(ggplot2)
+
 thematic_shiny(font = "auto")
 
 ui <- fluidPage(
