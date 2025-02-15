@@ -7,12 +7,14 @@ library(glue)
 
 Diamant <- diamonds
 
-
+thematic_shiny(
+  font = "auto"
+)
 
 ui <- fluidPage(
   theme = bs_theme(
     version = 5,
-    bootswatch = "darkly"
+    bootswatch = "vapor"
   ),
   titlePanel("Exploration des diamants"),
   sidebarLayout(
