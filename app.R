@@ -9,7 +9,6 @@ Diamant <- diamonds
 
 
 ui <- fluidPage(
-
   titlePanel("Exploration des diamants"),
   sidebarLayout(
     sidebarPanel(
