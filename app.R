@@ -10,36 +10,48 @@ Diamant <- diamonds
 ui <- fluidPage(
   titlePanel("Exploration des diamants"),
   selectInput(
-    inputId = "couleur",
-    label = "Choisir la couleur",
+    inputId = "CouleurDiamant",
+    label = "Choisir la couleur des diamants",
+    choices = c("D", "E", "F", "G", "H", "I", "J"),
+    selected = "D"
+  ), 
+
+  selectInput(
+    inputId = "CouleurNuage",
+    label = "Choisir la couleur du nuage de points",
     choices = c(
-      "Bleu" = "blue","Rouge" = "red","Rose" = "pink","Noir" = "black",
-      "Orange" = "orange","Vert" = "green","Jaune" = "yellow","Gris"="grey"
+      "Bleu" = "blue", "Rouge" = "red", "Rose" = "pink", "Noir" = "black",
+      "Orange" = "orange", "Vert" = "green", "Jaune" = "yellow", "Gris" = "grey"
     ),
-    selected = "Bleu"
-  ),
+    selected = "Bleu" 
+  ), 
+
   sidebarLayout(
     sidebarPanel(
-      sliderInput("prix",
+      sliderInput("Prix",
         "Prix:",
-        min = min(Diamant$price),
+        min = min(Diamant$price), 
         max = max(Diamant$price),
         value = min(Diamant$price)
       )
     ),
     mainPanel(
-      plotOutput("DiamondPlot")
+      textOutput("DiamondTitle"),
+      plotOutput("DiamondPlot"),
+      DTOutput("DiamondTable")
     )
   )
 )
 
 
+
 server <- function(input, output) {
   output$DiamondPlot <- renderPlot({
     Diamant |>
-      filter(price > input$prix) |>
+      filter(price > input$Prix) |>
+      filter(color > input$CouleurDiamant) |>
       ggplot(aes(x = carat, y = price)) +
-      geom_point(color = input$couleur) # Directly use input$couleur
+      geom_point(color = input$CouleurNuage)
   })
 }
 
